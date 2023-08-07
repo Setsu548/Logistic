@@ -24,7 +24,17 @@ func (cc *ClientController) CreateClient(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, "error to code the Client")
 	}
 
-	cc.DB.Create(client)
+	dx := cc.DB.Create(&client)
+	if dx.Error != nil {
+		return c.JSON(http.StatusBadRequest, dx.Error.Error())
+	}
 
 	return c.JSON(http.StatusCreated, client)
+}
+
+func (cc *ClientController) GetClients(c echo.Context) error {
+	var clients []models.Client
+	cc.DB.Find(&clients)
+
+	return c.JSON(http.StatusOK, clients)
 }

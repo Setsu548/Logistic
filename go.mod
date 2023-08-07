@@ -6,8 +6,6 @@ require (
 	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.11.1
-	gorm.io/driver/mysql v1.5.1
-	gorm.io/gorm v1.25.2
 )
 
 require (

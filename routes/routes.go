@@ -9,4 +9,5 @@ import (
 func InitRoutes(e *echo.Echo, db *gorm.DB) {
 	clientController := controllers.NewClientController(db)
 	e.POST("/client", clientController.CreateClient)
+	e.GET("/client", clientController.GetClients)
 }
