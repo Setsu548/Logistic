@@ -7,7 +7,15 @@ import (
 )
 
 func InitRoutes(e *echo.Echo, db *gorm.DB) {
+
 	clientController := controllers.NewClientController(db)
-	e.POST("/client", clientController.CreateClient)
-	e.GET("/client", clientController.GetClients)
+	client := e.Group("/client")
+	client.POST("/", clientController.CreateClient)
+	client.GET("/", clientController.GetClients)
+
+	productController := controllers.NewProductController(db)
+	p := e.Group("/product")
+	p.POST("/", productController.CreateProduct)
+	p.GET("/", productController.GetProducts)
+
 }
