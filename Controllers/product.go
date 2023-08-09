@@ -24,6 +24,20 @@ func (cc *ProducController) CreateProduct(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, "error to code product")
 	}
 
+	var discount float32
+	if product.Delivery.ProductAmount > 10 {
+		switch product.Type {
+		case "truck":
+			discount = 0.05
+			product.Delivery.Shipping_price -= product.Delivery.Shipping_price * discount
+		case "maritime":
+			discount = 0.03
+			product.Delivery.Shipping_price -= product.Delivery.Shipping_price * discount
+		default:
+			return c.JSON(http.StatusBadRequest, "type of transport not correct")
+		}
+	}
+
 	db := cc.DB.Create(&product)
 	if db.Error != nil {
 		return c.JSON(http.StatusBadRequest, db.Error.Error())
