@@ -26,7 +26,7 @@ func main() {
 
 	e := echo.New()
 	routes.InitRoutes(e, db)
-	e.Start(":8000")
+	e.Start(":" + os.Getenv("HOST_PORT"))
 }
 
 func connectDb() (*gorm.DB, error) {
